@@ -1,0 +1,4 @@
+.idea
+.DS_Store
+minimax_env
+__pycache__
