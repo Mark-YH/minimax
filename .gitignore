@@ -1,4 +1,5 @@
 .idea
 .DS_Store
-minimax_env
+venv
 __pycache__
+.vscode
