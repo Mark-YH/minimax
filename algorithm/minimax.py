@@ -6,8 +6,11 @@ Created on 2021-06-12
 """
 import math
 import copy
-import algorithm.connect4
-from algorithm.tic_tac_toe import Tic_tac_toe
+import time
+
+from algorithm.game.connect4 import Connect4
+from algorithm.game.tic_tac_toe import TicTacToe
+
 
 def minimax(game, depth, alpha, beta, is_max_player) -> tuple:
     if is_max_player:
@@ -23,7 +26,7 @@ def minimax(game, depth, alpha, beta, is_max_player) -> tuple:
         for move in game.get_legal_moves():
             g = copy.deepcopy(game)
             g.move(player, move)
-            val = minimax(g, depth-1, alpha, beta, False)[0]
+            val = minimax(g, depth - 1, alpha, beta, False)[0]
             if val > best:
                 best = val
                 best_move = move
@@ -37,7 +40,7 @@ def minimax(game, depth, alpha, beta, is_max_player) -> tuple:
         for move in game.get_legal_moves():
             g = copy.deepcopy(game)
             g.move(player, move)
-            val = minimax(g, depth-1, alpha, beta, True)[0]
+            val = minimax(g, depth - 1, alpha, beta, True)[0]
             if val < best:
                 best = val
                 best_move = move
@@ -49,7 +52,7 @@ def minimax(game, depth, alpha, beta, is_max_player) -> tuple:
 
 
 def play_with_ai():
-    g = Tic_tac_toe()
+    g = Connect4()
     g.render()
     is_first = input("Do you go first? [y/n]")
     if is_first.lower() == 'y':
@@ -68,17 +71,17 @@ def play_with_ai():
                 player = 'com'
             else:
                 player = 'player'
-        print('Player ' + player + "'s turn")
-        try:
-            if player == 'player':
-                move = int(input('Move: '))
-                g.move(player, move)
-            else:
-                move = minimax(g, 10, -math.inf, math.inf, True)[1]
-                g.move(player, move)
-            g.render()
-        except Exception as e:
-            print(e)
+        print('Player ' + player + "'s turn (icon = " + str(g.player[player]) + ")")
+        if player == 'player':
+            move = int(input('Move: '))
+            g.move(player, move)
+        else:
+            t1 = time.process_time()
+            move = minimax(g, 8, -math.inf, math.inf, True)[1]
+            t2 = time.process_time()
+            print('Algorithm time:', t2 - t1, 's')
+            g.move(player, move)
+        g.render()
 
     if g.is_win('player'):
         print('You win')

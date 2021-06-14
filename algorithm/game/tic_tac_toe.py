@@ -4,15 +4,15 @@ Created on 2021-06-14
 
 @author: Mark Hsu
 """
+from algorithm.game import game_base
 
 
-class Tic_tac_toe(object):
+class TicTacToe(game_base.Game):
     def __init__(self):
-        self.turn = 0
-        self.player = {'com': 0, 'player': 1}
+        super().__init__()
         self.board = {1: '', 2: '', 3: '',
                       4: '', 5: '', 6: '',
-                      7: '', 8: '',  9: ''}
+                      7: '', 8: '', 9: ''}
 
     def get_legal_moves(self) -> list:
         l = []
@@ -22,18 +22,21 @@ class Tic_tac_toe(object):
         return l
 
     def move(self, player, position) -> None:
-        if not position in self.board.keys() or not self.board[position] == '':
+        if position not in self.board.keys() or not self.board[position] == '':
             raise Exception('Illegal move')
         self.board[position] = self.player[player]
         self.turn += 1
 
     def evaluate(self) -> int:
+        score = 0
+        if self.board[5] == self.player['com']:
+            score += 100
         if self.is_win('player'):
-            return -1e5
+            score -= 1000
         elif self.is_win('com'):
-            return 1e5
-        else:
-            return 0
+            score += 1000
+
+        return score
 
     def is_win(self, player) -> bool:
         win = [[1, 2, 3], [4, 5, 6], [7, 8, 9],
