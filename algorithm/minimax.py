@@ -71,17 +71,20 @@ def play_with_ai():
                 player = 'com'
             else:
                 player = 'player'
-        print('Player ' + player + "'s turn (icon = " + str(g.player[player]) + ")")
-        if player == 'player':
-            move = int(input('Move: '))
-            g.move(player, move)
-        else:
-            t1 = time.process_time()
-            move = minimax(g, 8, -math.inf, math.inf, True)[1]
-            t2 = time.process_time()
-            print('Algorithm time:', t2 - t1, 's')
-            g.move(player, move)
-        g.render()
+        try:
+            print('Player ' + player + "'s turn (icon = " + str(g.player[player]) + ")")
+            if player == 'player':
+                move = int(input('Move: '))
+                g.move(player, move)
+            else:
+                t1 = time.process_time()
+                move = minimax(g, 8, -math.inf, math.inf, True)[1]
+                t2 = time.process_time()
+                print('Algorithm time:', t2 - t1, 's')
+                g.move(player, move)
+            g.render()
+        except Exception as e:
+            print(e)
 
     if g.is_win('player'):
         print('You win')
