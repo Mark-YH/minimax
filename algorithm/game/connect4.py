@@ -44,17 +44,21 @@ class Connect4(Game):
     def evaluate(self) -> int:
         def calc_score(l):
             if l.count(self.player['com']) == 3 and l.count(self.player['player']) == 0:
-                return 100
+                return 150
             elif l.count(self.player['player']) == 3 and l.count(self.player['com']) == 0:
                 return -100
             elif l.count(self.player['com']) == 2 and l.count(self.player['player']) == 0:
-                return 10
+                return 15
             elif l.count(self.player['player']) == 2 and l.count(self.player['com']) == 0:
                 return -10
             else:
                 return 0
 
         score = 0
+        for row in range(self.row_size):
+            if self.board[(row, int(self.col_size / 2))] == self.player['com']:
+                score += 5
+
         # horizontal scoring
         for row in range(self.row_size):
             for col in range(self.col_size - 3):
@@ -69,12 +73,12 @@ class Connect4(Game):
         for row in range(self.row_size - 3):
             for col in range(self.col_size - 3):
                 score += calc_score([self.board[(row, col)], self.board[(row + 1, col + 1)],
-                                     self.board[(row + 2, col + 2)], self.board[(row + 3, col + 3)]])
+                                     self.board[(row + 2, col + 2)], self.board[(row + 3, col + 3)]]) * 2
         # diagonal scoring /
         for row in range(self.row_size - 3):
             for col in range(self.col_size - 1, self.col_size - 4 - 1, -1):
                 score += calc_score([self.board[(row, col)], self.board[(row + 1, col - 1)],
-                                     self.board[(row + 2, col - 2)], self.board[(row + 3, col - 3)]])
+                                     self.board[(row + 2, col - 2)], self.board[(row + 3, col - 3)]]) * 2
         if self.is_win('com'):
             score += 30000
         elif self.is_win('player'):
