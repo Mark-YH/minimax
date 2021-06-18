@@ -131,7 +131,7 @@ document.getElementById('newGame').addEventListener('click', function () {
     is_player_turn = true;
     axios({
         method: 'get',
-        url: window.location.protocol + '//' + window.location.host + "/api/get_move/",
+        url: window.location.protocol + '//' + window.location.host + "/api/connect4/get/move/",
     }).then(res => {
         document.getElementById('debug').innerHTML = res.data['data']['move'];
         console.log(res.data);
