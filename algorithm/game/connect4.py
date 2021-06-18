@@ -41,6 +41,9 @@ class Connect4(Game):
             if row == 0:
                 raise Exception('Illegal move')
 
+    def set_cell(self, cell, value):
+        self.board[cell] = value
+
     def evaluate(self) -> int:
         def calc_score(l):
             if l.count(self.player['com']) == 3 and l.count(self.player['player']) == 0:
@@ -80,9 +83,9 @@ class Connect4(Game):
                 score += calc_score([self.board[(row, col)], self.board[(row + 1, col - 1)],
                                      self.board[(row + 2, col - 2)], self.board[(row + 3, col - 3)]]) * 2
         if self.is_win('com'):
-            score += 30000
+            score += 100000
         elif self.is_win('player'):
-            score -= 10000
+            score -= 50000
         return score
 
     def is_win(self, player) -> bool:
