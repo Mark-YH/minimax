@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block game %}
+  {% csrf_token %}
   <div class="row mt-3">
     <div class="col-sm text-center">
       <button id="newGame" class="btn btn-primary border rounded border-dark">New game</button>
