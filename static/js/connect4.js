@@ -1,5 +1,3 @@
-import anime from '/static/js/anime.es.js';
-
 const svgns = "http://www.w3.org/2000/svg";
 let svg = document.querySelector('svg');
 let pt = svg.createSVGPoint();
@@ -127,4 +125,15 @@ svg.addEventListener('click', function (evt) {
         put_chess(get_x_index(loc), 5);
         is_player_turn = false;
     }
+}, false);
+
+document.getElementById('newGame').addEventListener('click', function () {
+    is_player_turn = true;
+    axios({
+        method: 'get',
+        url: window.location.protocol + '//' + window.location.host + "/api/get_move/",
+    }).then(res => {
+        document.getElementById('debug').innerHTML = res.data['data']['move'];
+        console.log(res.data);
+    })
 }, false);

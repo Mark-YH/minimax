@@ -1,0 +1,54 @@
+{% extends 'index.html' %}
+
+{% block gameTitle %}
+  Connect 4
+{% endblock %}
+
+{% block game %}
+  <div class="row mt-3">
+    <div class="col-sm text-center">
+      <button id="newGame" class="btn btn-primary border rounded border-dark">New game</button>
+      <button type="button" class="btn btn-primary border rounded border-dark" data-bs-toggle="modal"
+              data-bs-target="#settingModal">Setting
+      </button>
+    </div>
+    <div class="modal fade" id="settingModal" tabindex="-1" aria-labelledby="settingModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="settingModalLabel">Setting</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="ai" id="flexRadioDefault1">
+              <label class="form-check-label" for="flexRadioDefault1">
+                Play with AI
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="2player" id="flexRadioDefault2" checked>
+              <label class="form-check-label" for="flexRadioDefault2">
+                1P vs 2P
+              </label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="text-center">
+      <svg id="svg" class="bg-light border-primary rounded" width="100%" height="100%" viewBox="0 0 100 100"
+           style="height: 100px;width: 100px;"></svg>
+    </div>
+  </div>
+
+  {% load static %}
+  <script src="{% static 'js/anime.min.js' %}"></script>
+  <script src="{% static 'js/connect4.js' %}"></script>
+{% endblock %}
