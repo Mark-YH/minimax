@@ -5,6 +5,10 @@ let is_player_turn = true
 window.onload = init;
 window.onresize = setSize;
 
+let Setting = {
+    mode: 'ai',
+    difficulty: 5,
+};
 
 let animation = function (target, y_index) {
     anime({
@@ -116,7 +120,7 @@ svg.addEventListener('mousemove', function (evt) {
         circle.setAttributeNS(null, 'r', "5");
         svg.appendChild(circle);
     }
-}, false);
+});
 
 svg.addEventListener('click', function (evt) {
     let loc = cursorPoint(evt);
@@ -125,7 +129,7 @@ svg.addEventListener('click', function (evt) {
         put_chess(get_x_index(loc), 5);
         is_player_turn = false;
     }
-}, false);
+});
 
 document.getElementById('newGame').addEventListener('click', function () {
     is_player_turn = true;
@@ -136,4 +140,17 @@ document.getElementById('newGame').addEventListener('click', function () {
         document.getElementById('debug').innerHTML = res.data['data']['move'];
         console.log(res.data);
     })
-}, false);
+});
+
+document.querySelector('#settingModal').addEventListener('change', function () {
+    let radios = document.querySelectorAll('[name=mode]');
+    if (radios[0].checked) {
+        document.querySelector('#difficulty').removeAttribute('disabled');
+        Setting.mode = 'ai';
+        Setting.difficulty = document.querySelector('#difficulty').value;
+    } else if (radios[1].checked) {
+        document.querySelector('#difficulty').setAttribute('disabled', 'true');
+        Setting.mode = 'player';
+        Setting.difficulty = undefined;
+    }
+})
