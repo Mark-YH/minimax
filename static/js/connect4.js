@@ -208,25 +208,6 @@ svg.addEventListener('click', function (evt) {
 });
 
 document.getElementById('newGame').addEventListener('click', function () {
-    const CancelToken = axios.CancelToken;
-    const source = CancelToken.source();
-
-    axios.post(window.location.protocol + '//' + window.location.host + "/api/connect4/get/move/", {
-        cancelToken: source.token
-    }).catch(function (thrown) {
-        if (axios.isCancel(thrown)) {
-            console.log('Request canceled', thrown.message);
-        } else {
-            console.log(thrown);
-        }
-    });
-
-    axios.post('/user/12345', {}, {
-        headers: {"X-CSRFToken": csrftoken},
-        cancelToken: source.token
-    })
-    source.cancel();
-
     Setting.board = {
         0: '', 1: '', 2: '', 3: '', 4: '', 5: '', 6: '',
         10: '', 11: '', 12: '', 13: '', 14: '', 15: '', 16: '',
