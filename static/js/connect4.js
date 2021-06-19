@@ -185,9 +185,6 @@ svg.addEventListener('click', function (evt) {
                 console.log(res.data);
                 if (res.data['success']) {
                     let data = res.data['data'];
-                    put_chess(data['ai_move'][1], data['ai_move'][0]);
-                    Setting.board = data['board'];
-                    Setting.legal_moves = data['legal_moves'];
                     if (data['winner'] != null) {
                         console.log(data['winner']);
                         let txt = document.createElementNS(svgns, 'text');
@@ -199,6 +196,9 @@ svg.addEventListener('click', function (evt) {
                         txt.innerHTML = 'Winner is ' + data['winner'];
                         svg.appendChild(txt);
                     } else {
+                        put_chess(data['ai_move'][1], data['ai_move'][0]);
+                        Setting.board = data['board'];
+                        Setting.legal_moves = data['legal_moves'];
                         Setting.is_player_turn = true;
                     }
                 }
