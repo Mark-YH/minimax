@@ -47,6 +47,15 @@ def get_connect4_move(request):
         game.set_cell(cell, value)
         game.turn += 1
 
+    move = None
+    if is_ai_mode and not game.is_gameover():
+        position = minimax(game, depth, -math.inf, math.inf, True)[1]
+        for row in reversed(range(game.row_size)):
+            if game.board[(row, position)] == '':
+                move = (row, position)
+                break
+        game.move('com', position)
+
     winner = None
     if game.is_gameover():
         if game.is_win(list(game.player.keys())[0]):
@@ -55,14 +64,6 @@ def get_connect4_move(request):
             winner = list(game.player.keys())[1]
         else:
             winner = 'tie'
-    move = None
-    if winner is None and is_ai_mode:
-        position = minimax(game, depth, -math.inf, math.inf, True)[1]
-        for row in reversed(range(game.row_size)):
-            if game.board[(row, position)] == '':
-                move = (row, position)
-                break
-        game.move('com', position)
     board = {}
     for k, v in game.board.items():
         board.update({k[0] * 10 + k[1]: v})
