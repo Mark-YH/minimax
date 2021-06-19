@@ -19,7 +19,7 @@ from algorithm import views
 urlpatterns = [
     path('', views.home),
     path('connect4/', views.connect4),
-    path('tictactoe/', views.ticTacToe),
+    path('tictactoe/', views.tic_tac_toe),
     path('api/connect4/get/move/', views.get_connect4_move),
     path('api/tictactoe/get/move/', views.get_tictactoe_move),
 ]
