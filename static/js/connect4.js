@@ -186,7 +186,9 @@ svg.addEventListener('click', function (evt) {
                 if (res.data['success']) {
                     let data = res.data['data'];
                     if (data['winner'] != null) {
-                        console.log(data['winner']);
+                        if (data['winner'] === 'com') {
+                            put_chess(data['ai_move'][1], data['ai_move'][0]);
+                        }
                         let txt = document.createElementNS(svgns, 'text');
                         txt.setAttributeNS(null, 'x', '50%');
                         txt.setAttributeNS(null, 'y', '10%');
